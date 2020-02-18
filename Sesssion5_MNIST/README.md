@@ -13,3 +13,19 @@ Analysis:
 No overfitting. Test accuracy is a bit better than training accuracy. Shows model is trained harder.
 But accuracy is not hitting high accuracy under 15 epoch (99.4%).
 Number of parameters used in higher than desired. (20K > 10K required).
+
+
+File- EVA4_S5_F2_SkeletalModel&BatchNorm
+Target:
+
+As previous model was over 20K, make the model lighter. Also added BatchNorm after every convolution to increase model efficiency.
+
+Results:
+
+Number of parameters: 6.6K
+Training accuracy : 98.85%
+Testing accuracy : 99.22%
+Analysis:
+
+Very light model. Scope to improve.
+No overfitting. Test accuracy is a bit better than training accuracy. Shows model is trained harder. But model is not hitting required accuracy of 99.4%.

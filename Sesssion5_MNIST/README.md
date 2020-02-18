@@ -1,4 +1,5 @@
 File - EVA4_S5_F1_BasicStructure
+
 Target:
 
 Get the basic code structure. This is from previous submission. (Dropout used after every 2 convolution layers. BatchNorm not used in later convolutions. No GAP used.)
@@ -16,6 +17,7 @@ Number of parameters used in higher than desired. (20K > 10K required).
 
 
 File- EVA4_S5_F2_SkeletalModel&BatchNorm
+
 Target:
 
 As previous model was over 20K, make the model lighter. Also added BatchNorm after every convolution to increase model efficiency.

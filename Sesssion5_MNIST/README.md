@@ -64,3 +64,19 @@ Analysis:
 
 Test accuracy is still not achieving desired value. Model is not showing any overfitting. Shows model is trained harder.
 
+
+File- EVA4_S5_F5_Dropout
+
+Target:
+
+Model has not been achieving required accuracy. Though Dropouts are added to take care of overfitting, adding these elements as well to check for accuracy.
+
+Results:
+
+Number of parameters: 9.5K
+Training accuracy : 98.08%
+Testing accuracy : 98.32%
+Analysis:
+
+Test accuracy is still not achieving desired value.
+

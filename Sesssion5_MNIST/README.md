@@ -47,3 +47,20 @@ Testing accuracy : 99.32%
 Analysis:
 
 Test accuracy is still not achieving desired value. Model is not showing any overfitting. Shows model is trained harder.
+
+
+File- EVA4_S5_F4_GAPLayer
+
+Target:
+
+Convolution layer was being used as the last layer. Use GAP to reduce the last big layer. Since model's capacity is reduced, add another convolution block after GAP to increase capacity.
+
+Results:
+
+Number of parameters: 9.5K
+Training accuracy : 98.92%
+Testing accuracy : 99.15%
+Analysis:
+
+Test accuracy is still not achieving desired value. Model is not showing any overfitting. Shows model is trained harder.
+

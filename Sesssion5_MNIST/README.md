@@ -31,3 +31,19 @@ Analysis:
 
 Very light model. Scope to improve.
 No overfitting. Test accuracy is a bit better than training accuracy. Shows model is trained harder. But model is not hitting required accuracy of 99.4%.
+
+
+File- EVA4_S5_F3_AdditionalConvLayers
+
+Target:
+
+As previous model was well below capacity and accuracy was not hitting 99.4%, added additional convolution layers to increase capacity.
+
+Results:
+
+Number of parameters: 11.3K
+Training accuracy : 99.14%
+Testing accuracy : 99.32%
+Analysis:
+
+Test accuracy is still not achieving desired value. Model is not showing any overfitting. Shows model is trained harder.

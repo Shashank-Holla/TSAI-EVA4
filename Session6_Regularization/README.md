@@ -1,10 +1,13 @@
 <h1>L1 and L2 Regularization</h1>
 To check the accuracy and loss of the model with L1/L2 regularization. 
 
-Without L1/L2 changes: Slight overfitting observed for higher epochs (epoch > 22). Training accuracy- 99.55% and Test accuracy- 99.42%
-With L1 changes: Slight overfitting observed for higher epochs (epoch > 28). Training accuracy- 99.57% and Test accuracy- 99.46%
-With L2 changes: Same behaviour as L1.
-With L1 and L2 changes: Lesser Overfitting. Training accuracy-99.38% and Test accuracy-99.40%
+*Without L1/L2 changes:* Slight overfitting observed for higher epochs (epoch > 22). Training accuracy- 99.55% and Test accuracy- 99.42%
+
+*With L1 changes:* Slight overfitting observed for higher epochs (epoch > 28). Training accuracy- 99.57% and Test accuracy- 99.46%
+
+*With L2 changes:* Same behaviour as L1.
+
+*With L1 and L2 changes:* Lesser Overfitting. Training accuracy-99.38% and Test accuracy-99.40%
 
   
   <h3>Without L1/L2 Regularization</h3>

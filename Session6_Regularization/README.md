@@ -13,7 +13,7 @@ To check the accuracy and loss of the model with L1/L2 regularization.
   
   <h3>With L2 Regularization</h3>
   
-  !{WithL2](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session6_Regularization/Stats_withL2.JPG)
+  ![WithL2](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session6_Regularization/Stats_withL2.JPG)
   
   
   <h3>With L1 and L2 Regularization</h3>

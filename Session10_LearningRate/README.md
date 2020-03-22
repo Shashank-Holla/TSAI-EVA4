@@ -1,4 +1,4 @@
-Training and Learning rates
+#Training and Learning rates
 
 This is to implement the following Learning techniques to train the model.
 

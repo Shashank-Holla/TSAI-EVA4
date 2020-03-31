@@ -31,7 +31,11 @@ This is to implement the following Learning techniques to train the model.
 
 Train/Test loss and accuracy trend against epoch.
 
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session10_LearningRate/imgs/LossAccuracy.JPG)
+
 
 ## GradCAM
 
 GradCAM test results for missclassified images.
+
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session10_LearningRate/imgs/grad_cam_missclassified.jpg)

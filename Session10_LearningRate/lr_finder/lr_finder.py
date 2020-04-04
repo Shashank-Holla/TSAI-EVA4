@@ -1,5 +1,6 @@
 from __future__ import print_function, division
 import torch
+from tqdm.autonotebook import tqdm
 import copy
 import os
 from torch.optim.lr_scheduler import _LRScheduler
@@ -24,7 +25,7 @@ class LRFinder(object):
         self.memory_cache = memory_cache
         self.cache_dir = cache_dir
         
-        self.history = {"lr": [], "valLoss": [], "valAcc": []}
+        self.history = {"lr": [], "Loss": [], "Acc": []}
         
         if device:
             self.device = device
@@ -46,7 +47,7 @@ class LRFinder(object):
         
         
     
-    def range_test(self, trainloader, testloader, start_lr=None, end_lr=2, num_iter=100, step_mode="linear", smooth_f=0.05, diverge_th=5, accumulation_steps=1):
+    def range_test(self, trainloader, testloader=None, start_lr=None, end_lr=2, num_iter=100, step_mode="linear", smooth_f=0.05, diverge_th=5, accumulation_steps=1):
         """
         Input:
             trainloader : Training set data loader
@@ -63,7 +64,7 @@ class LRFinder(object):
         """
          
         #Reset test results
-        self.history = {"lr": [], "valLoss": [], "valAcc": []}
+        self.history = {"lr": [], "Loss": [], "Acc": []}
         self.best_loss = None
         
         #Move model to device
@@ -89,9 +90,11 @@ class LRFinder(object):
         # Iterator to get data by batches.
         iter_wrapper = DataLoaderIterWrapper(trainloader)
         #Train and test on the batches
-        for iteration in range(num_iter):
-            train_loss = self._train_batch(iter_wrapper, accumulation_steps)
-            test_accuracy, test_loss = self._validate(testloader)
+        for iteration in tqdm(range(num_iter)):
+            accuracy, loss = self._train_batch(iter_wrapper, accumulation_steps)
+            
+            if testloader:
+                accuracy, loss = self._validate(testloader)
         
             #Update Learning rate
             lr_schedule.step()
@@ -99,20 +102,20 @@ class LRFinder(object):
         
             # Track the best loss
             if iteration == 0:
-                self.best_loss = test_loss
+                self.best_loss = loss
             else:
                 if smooth_f > 0:
-                    test_loss = smooth_f * test_loss + (1 - smooth_f) * self.history["valLoss"][-1]
+                    loss = smooth_f * loss + (1 - smooth_f) * self.history["Loss"][-1]
                 
-                if test_loss < self.best_loss:
-                    self.best_loss = test_loss
+                if loss < self.best_loss:
+                    self.best_loss = loss
 
             # Check if the loss has diverged; if it has, stop the test
-            self.history["valLoss"].append(test_loss)
-            self.history["valAcc"].append(test_accuracy)
-            # print("Run iteration:",iteration,"  Test LR",self.history["lr"][-1], "  Test loss:",test_loss,"  Test Accuracy:",test_accuracy)
+            self.history["Loss"].append(loss)
+            self.history["Acc"].append(accuracy)
+            # print("Run iteration:",iteration,"  Test LR",self.history["lr"][-1], "  Test loss:",loss,"  Test Accuracy:",accuracy)
         
-            if test_loss > diverge_th * self.best_loss:
+            if loss > diverge_th * self.best_loss:
                 print("Stopping early, the loss has diverged")
                 break
 
@@ -138,8 +141,12 @@ class LRFinder(object):
 
     #Training the model
     def _train_batch(self, iter_wrapper, accumulation_steps):
-        self.model.train()
         total_loss = None
+        train_accuracy = 0
+        correct = 0
+        total = 0
+        
+        self.model.train()
         
         #Train
         self.optimizer.zero_grad()
@@ -155,15 +162,21 @@ class LRFinder(object):
             #backward pass
             loss.backward()
             
+            pred = outputs.argmax(dim=1, keepdim=True)
+            correct += pred.eq(labels.view_as(pred)).sum().item()
+            total += len(inputs)
+            
             if total_loss is None:
                 total_loss = loss
+                train_accuracy = (100 * correct)/total
             else:
                 total_loss += loss
+                train_accuracy += (100 * correct)/total
             
             # print("Train batch size",inputs.size(0))
         self.optimizer.step()
             
-        return total_loss.item()
+        return train_accuracy, total_loss.item()
             
     
     #Testing the model
@@ -206,8 +219,8 @@ class LRFinder(object):
         """
         
         lrs = self.history["lr"]
-        loss = self.history["valLoss"]
-        acc = self.history["valAcc"]
+        loss = self.history["Loss"]
+        acc = self.history["Acc"]
         
         if skip_end == 0:
             lrs = lrs[skip_start:]
@@ -229,13 +242,13 @@ class LRFinder(object):
         if log_lr:
             ax[0].set_xscale("log")
             ax[1].set_xscale("log")
-        ax[0].set_title("Test loss vs Learning rate")
+        ax[0].set_title("Loss vs Learning rate")
         ax[0].set_xlabel("Learning rate")
-        ax[0].set_ylabel("Test Loss")
+        ax[0].set_ylabel("Loss")
         
-        ax[1].set_title("Test Accuracy vs Learning rate")
+        ax[1].set_title("Accuracy vs Learning rate")
         ax[1].set_xlabel("Learning rate")
-        ax[1].set_ylabel("Test Accuracy")
+        ax[1].set_ylabel("Accuracy")
         if show_lr:
             ax[0].axvline(x=show_lr, color="red")
             ax[1].axvline(x=show_lr, color="red")

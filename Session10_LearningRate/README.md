@@ -10,19 +10,19 @@ This is to implement the following Learning techniques to train the model.
 
 ## Model parameters and hyperparameters
 
-- LR finder : start_lr = 0.001 and end_lr=0.01 (linear): Steep decrease in loss observed between 0.003 and 0.006
+- LR finder : start_lr = 0.0001 and end_lr=1.0 (exponential): Steep decrease in loss observed between 0.01 and 0.05
 
-- Optimizer : SGD with momentum (0.9). Learning rate = 0.04 
+- Optimizer : SGD with momentum (0.9). Learning rate = 0.03 
               ReduceLRonPlateau : factor=0.1, patience=2
               
 - Epochs : 50
 
 ## LR Finder
-1. start_lr=0.001 and end_lr=0.05 (exp): Steep decrease in loss observed between 0.001 and 0.01
+1. start_lr=0.0001 and end_lr=1.0 (exp): Steep decrease in loss observed between 0.01 and 0.05
 
 ![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session10_LearningRate/imgs/LRfind_run1_exp.JPG)
 
-2. start_lr = 0.001 and end_lr=0.01 (linear): Steep decrease in loss observed between 0.003 and 0.006. LR
+2. start_lr = 0.01 and end_lr=0.1 (exp): Best loss observed at 0.03
 
 ![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session10_LearningRate/imgs/LRfind_run2_linear.JPG)
 

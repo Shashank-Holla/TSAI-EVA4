@@ -35,7 +35,7 @@ One Cycle Policy
 
 ## Triangular LR Policy
 
-[](!https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session11_Superconvergence/imgs/CyclicTriangle.JPG)
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session11_Superconvergence/imgs/CyclicTriangle.JPG)
 
 
 ## Training and Validation loss/accuracy trend

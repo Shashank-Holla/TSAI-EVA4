@@ -10,15 +10,33 @@ The motivation behind this is that, during the middle of learning when the learn
 works as a regularisation method and keep the network from overfitting. This helps the network to avoid steep areas
 of loss and land better flatter minima.
 
-3. 
+3. Add image augmentation- a) Image padding  b) RandomCrop  c) HorizontalFlip  d) Cutout  
 
 
 ## Model parameters and hyperparameters
 
-Learning rate boundaries : min LR= max LR= (found from LR range test)
+Learning rate boundaries : min LR=0.0038 max LR=0.038 (found from LR range test)
 
 Batch size = 512
 
 Epochs = 24
-###
+
+One Cycle Policy
+
+- min LR = 0.0038
+
+- max LR = 0.038
+
+- Steps per epoch = 98
+
+- Epochs to reach max LR = 5
+
+
+
+## Triangular LR Policy
+
+[](!https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session11_Superconvergence/imgs/CyclicTriangle.JPG)
+
+
+## Training and Validation loss/accuracy trend
 

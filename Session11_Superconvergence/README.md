@@ -40,3 +40,7 @@ One Cycle Policy
 
 ## Training and Validation loss/accuracy trend
 
+Loss/Accuracy trend for train and test over training epochs.
+
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session11_Superconvergence/imgs/TrainTestAccLoss.JPG)
+

@@ -17,6 +17,10 @@ of loss and land better flatter minima.
 
 Learning rate boundaries : min LR=0.0038 max LR=0.038 (found from LR range test)
 
+Optimizer : SGD
+
+Loss function: Cross Entropy loss
+
 Batch size = 512
 
 Epochs = 24

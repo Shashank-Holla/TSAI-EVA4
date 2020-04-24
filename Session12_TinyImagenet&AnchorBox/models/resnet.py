@@ -57,7 +57,8 @@ class ResNet(nn.Module):
         out = F.adaptive_avg_pool2d(out, 1)
         out = out.view(out.size(0), -1)
         out = self.linear(out)
+        # print(out.shape)
         return out
         
-def ResNet18(num_classes=200):
-    return ResNet(BasicBlock, [2,2,2,2])
+def ResNet18(num_classes=10):
+    return ResNet(BasicBlock, [2,2,2,2], num_classes=num_classes)

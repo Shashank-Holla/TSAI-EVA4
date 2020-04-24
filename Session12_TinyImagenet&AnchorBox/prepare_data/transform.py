@@ -7,11 +7,12 @@ def transform(means, stddev, batch_size):
 
     train_transforms = transforms.Compose(
        [
-        # transforms.RandomCrop(32, padding=4),
-       transforms.RandomHorizontalFlip(),
+       transforms.RandomCrop(64, padding=8, padding_mode='reflect'),
+       transforms.RandomHorizontalFlip(p=0.5),
+    #   transforms.RandomRotation(10, resample=False, expand=False, center=None, fill=means),
        transforms.ToTensor(),
        transforms.Normalize(means, stddev),
-        transforms.RandomErasing(p=1, scale=(0.25, 0.25), ratio=(1, 1), value=means, inplace=False)
+        transforms.RandomErasing(p=1, scale=(0.125, 0.125), ratio=(1, 1), value=means, inplace=False)
         ])
         
     test_transforms = transforms.Compose(

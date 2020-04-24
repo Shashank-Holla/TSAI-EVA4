@@ -21,5 +21,6 @@ def test(net, device, testloader, criterion):
     epoch_test_loss /= len(testloader)
     # print("Test loss=",epoch_test_loss)
     # print('Accuracy of the network on the 10000 test images: %d %%' %epoch_test_accuracy)
-    print('Epoch Test loss:',epoch_test_loss,'        Epoch Test Accuracy:',epoch_test_accuracy)
+    print('Epoch Test loss: {:.4f}, Epoch Test Accuracy: ({}/{}) - {:.2f}%'.format(epoch_test_loss, correct, total, epoch_test_accuracy))
+    
     return epoch_test_accuracy, epoch_test_loss

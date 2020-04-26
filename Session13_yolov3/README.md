@@ -2,7 +2,8 @@
 
 ## PART A: Object detection using OpenCV YOLO v3
 
-Objective: Detect objects in an image having person and items from COCO dataset. Object detection is done using YOLO v3 on OpenCV.
+Objective: Detect objects in an image having person and items from COCO dataset. 
+Object detection is done using YOLO v3 on OpenCV.
 
 ### Result
 ![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session13_yolov3/Images/shashank.jpg)

@@ -67,6 +67,14 @@ To prepare the final output video, follow the steps
 
 ### Results
 
+Inference on video
+ 
+ <a href="http://www.youtube.com/watch?feature=player_embedded&v=ZePHNqliwPc
+" target="_blank"><img src="http://img.youtube.com/vi/ZePHNqliwPc/0.jpg" 
+alt="Emmetparty" width="600" height="400" border="10" /></a>
+
+
+
 Inference on images
 
 <p>
@@ -82,8 +90,8 @@ Inference on images
 	title="Emmet_4" width="400" height="200" />
  </p>
  
- Inference on video
  
- [![](https://www.youtube.com/watch?v=ZePHNqliwPc/0.jpg)](https://www.youtube.com/watch?v=ZePHNqliwPc)
+
+ 
   
 

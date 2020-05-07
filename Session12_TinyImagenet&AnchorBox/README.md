@@ -37,6 +37,19 @@ One Cycle Policy
 ![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session12_TinyImagenet%26AnchorBox/run_results/grad_cam_missclassified.jpg)
 
 
+### Meanwhile..
+
+During TinyImagenet dataset preparation for model training and inference, the data prep process was done on Google's mounted drive as well as Google Colab's cloud machines. This was to mainly to understand the processing time and the efficient method of the two. Shared below, is the processing time is seconds for the different tasks.
+
+| Task                                             | Processing Time on mounted drive (in seconds) | Processing Time on colab cloud machine (in seconds)  |
+|--------------------------------------------------|-----------------------------------------------|------------------------------------------------------|
+| Download TinyImagenet dataset and unzip folders. | 1085                                          | 57                                                   |
+| Validation, training dataset merge               | 147                                           | 0.34                                                 |
+| Train, Test dataset shuffle and distribute.      | 606                                           | 4                                                    |
+
+Processing time on mounted drive is nearly 20-150 times as that on Colab's local cloud machines for tasks such as download & unzip and distribution of train/test dataset (mainly IO).
+
+
 ## PART B
 
 Object Localization
@@ -57,6 +70,8 @@ For example- first dog image has file name- 0.jpg and ID=0. The image has height
     For example- Image name- 7.jpg has 2 objects (cat and dog detected) and details for each object is available. For the dog object's bounding box, the top left x and top left y co-ordinates are at 5 and 32 respectively.Width and height of the bounding box is 142 and 227.
 
 3. **Categories**  - The categories object contains a list of categories (dog, cat) and each of those belongs to a supercategory. 
+
+
 
 ## Bounding box details
 

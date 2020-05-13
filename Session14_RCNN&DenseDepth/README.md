@@ -15,8 +15,12 @@ Link to the Dataset - [MonocularDepth_Mask_Dataset](https://drive.google.com/dri
 * **Mask Images (mask)** - Mask of the overlayed foreground-background images.
 * **Depth Images (depth)** - Depth maps of foreground-background images.
 
-Schrodinger's cat
+Schrodinger's cat dataset
+
 Overlayed, mask and depth images are created considering Home interiors and cats as background and foreground respectively.
+
+
+## Dataset Overview
 
 
 ## Dataset Statistics
@@ -32,7 +36,7 @@ Below are the stats gathered for the dataset. Foreground images are scaled to a 
 | depth      | 400000       |  192 * 192      |                     |      |          |
 
 
-## Dataset Overview
+
 
 
 ## Dataset creation
@@ -60,7 +64,35 @@ For a clean overlay of the foreground image on background, the foreground images
 * Save the modified image as .png file to retain the alpha channel.
 
 
-### Mask creation for the foreground
+### Overlay of the Foreground image on the background image and creation of variants
+
+Variants of the Foreground-Background images are created by overlaying the foreground image on the background image at random locations. Each of the foreground images are also horizontally flipped and overlayed on the background image to create more variants.
+
+* Random location `(x_offset, y_offset)` is identified on the background image to overlay the foreground image. The offset locations `x_offset` and `y_offset` are ensured to be within the range of `(background_width - foreground_width)` and `(background_height - foreground_height)` respectively.
+
+* Based on the alpha channel of the foreground image, pixel values of the foreground image is added to background images at the identified offset location.
+
+### Mask creation for the overlayed image
+
+* Black canvas of single channel of the size of the background image is prepared.
+
+* The foreground image is converted to greyscale (single channel) and all the pixel values of the foreground is set to 255 (white).
+
+* Single channel foreground image is overlayed on the background's black canvas using the alpha channel of the foreground image.
+
+The preparation time for the overlayed and its mask images is about 32 min (11 min image creation + 20 min for Folder zip and copy).
+
+### Creation of Depth images
+
+* Depth estimate maps are created using [DenseDepth](https://github.com/ialhashim/DenseDepth) repository. Pre-trained NYU model is used to create the depth images.
+
+* DenseDepth model's output is rescaled using min and max value of the output to obtain greater clarity between the depths. The depth images are saved as greyscale images.
+
+The preparation time for dense depth images is about 5 hours.
+
+
+
+
 
 
 

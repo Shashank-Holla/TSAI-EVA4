@@ -15,6 +15,7 @@ Link to the Dataset - [MonocularDepth_Mask_Dataset](https://drive.google.com/dri
 * **Mask Images (mask)** - Mask of the overlayed foreground-background images.
 * **Depth Images (depth)** - Depth maps of foreground-background images.
 
+
 Schrodinger's cat dataset
 
 Overlayed, mask and depth images are created considering Home interiors and cats as background and foreground respectively.
@@ -22,18 +23,53 @@ Overlayed, mask and depth images are created considering Home interiors and cats
 
 ## Dataset Overview
 
+Below are some of the examples of images, number of images of each directory.
+
+### Background (bg)
+
+This directory contains background images. Total number of images = 100
+
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session14_RCNN%26DenseDepth/results/bg.jpg)
+
+
+### Foreground (fg)
+
+This directory contains foreground images. Total number of images in the directory are 100.
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session14_RCNN%26DenseDepth/results/fg.png)
+
+
+### Overlayed images (bg_fg)
+
+This directory contains the overlayed images. Total images= 400K
+
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session14_RCNN%26DenseDepth/results/ov.jpg)
+
+
+### Mask (mask)
+
+This directory contains the mask of the object of the corresponding overlayed image. Total images in the directory are 400K.
+
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session14_RCNN%26DenseDepth/results/ma.jpg)
+
+
+### Depth (depth)
+
+This directory contains the depth estimate maps of the corresponding overlayed image. Total images in the directory are 400K.
+
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session14_RCNN%26DenseDepth/results/de.jpg)
+
 
 ## Dataset Statistics
 
 Below are the stats gathered for the dataset. Foreground images are scaled to a height of 80 while maintaining the aspect ratio.
 
-| Image Type | No of Images | Image Dimension | Total Imageset Size | Mean | Std. Dev |
-|------------|--------------|-----------------|---------------------|------|----------|
-| fg         | 100          |  192 * 192      |                     |      |          |
-| bg         | 100          |  x * 80         |                     |      |          |
-| fg_bg      | 400000       |  192 * 192      |                     |      |          |
-| mask       | 400000       |  192 * 192      |                     |      |          |
-| depth      | 400000       |  192 * 192      |                     |      |          |
+| Image Type | No of Images | Image Dimension | Total Imageset Size | Mean  | Std. Dev |
+|------------|--------------|-----------------|---------------------|-------|----------|
+| fg         | 100          |  192 * 192      |                     |       |          |
+| bg         | 100          |  x * 80         |                     |       |          |
+| fg_bg      | 400000       |  192 * 192      | 6 GB                |(0.6808, 0.6413, 0.5983) | (0.1943, 0.2126, 0.2364)  |
+| mask       | 400000       |  192 * 192      | 866 MB              |0.0614 |0.2373    |
+| depth      | 400000       |  192 * 192      | 1 GB                |0.4998       |0.2730          |
 
 
 
@@ -88,7 +124,7 @@ The preparation time for the overlayed and its mask images is about 32 min (11 m
 
 * DenseDepth model's output is rescaled using min and max value of the output to obtain greater clarity between the depths. The depth images are saved as greyscale images.
 
-The preparation time for dense depth images is about 5 hours.
+The preparation time for dense depth images is about 5 hours (21 seconds per batch of 384 images- Read (Read from file, Image resize, stack of images)=9 sec, Process (Depth estimate model) = 10 sec, Write (write to disk) = 0.33 sec) 
 
 
 

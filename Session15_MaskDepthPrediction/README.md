@@ -34,14 +34,14 @@ Model building is broken down into the following parts. We will work on the part
 
 ## Output of the model
 
-- [X] - [Evaluating the output]()
+- [X] - [Evaluating the output](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#evaluating-the-output)
 
 
 ## Results and Observations
 
-- [X] - [Run results]
+- [X] - [Run results](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#results)
 
-- [X] - [Observations]
+- [X] - [Observations](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#observations)
 
 
 ## Pre model training
@@ -139,10 +139,11 @@ Scheduler : Step LR
 1. Pin Memory - Pin memory flag is set to True to speed up dataset transfer from CPU to GPU.
 
 2. Since, the input size of the model during train/test do not vary, the following flags are set to true. This flag enables the inbuilt CUDNN auto-tuner to find the optimal algorithm for the received GPU hardware. This configuration was tested for single train run of 280K images. Improvement of 7 min was observed on this single run (23 min without, 17 with flag enabled).
+```
+torch.backends.cudnn.benchmark = True
 
-`torch.backends.cudnn.benchmark = True`
-
-`torch.backends.cudnn.enabled = True`
+torch.backends.cudnn.enabled = True
+```
 
 
 3. Though not advised, metric calculations for the output and ground truth tensors was done on the GPU itself. This is to avoid GPU to CPU transfer for every batch.
@@ -166,11 +167,11 @@ Refer the code for the metrics [here](https://github.com/Shashank-Holla/TSAI-EVA
 
 ### Results
 
-The model was trained on 3 sets of image resolutions (64x64, 112x112 and original resolution of 192x192) for 3 epochs. 
+The model was trained on 3 sets of image resolutions (64x64, 112x112 and original resolution of 192x192) for 3 epochs.  
 
 #### Predictions
 
-Below are the results for the run on 192x192 resolution images.
+Below are the results for the run on 192x192 resolution images. Further results can be found (here)[https://drive.google.com/drive/folders/1ACsG-epUmRCJ0zaKIAGGc5DzeG3SSY65]
 
  <TABLE>
   <TR>
@@ -215,7 +216,7 @@ Below is the trend for the metrics collected during train/test
  
 ## TODO
 
-* Checkboard issue for depth predictions with pixel shuffle.
+* Checkboard issue for depth predictions with pixel shuffle. Fine tune the model. 
 
 * Learning rate fine tune
 

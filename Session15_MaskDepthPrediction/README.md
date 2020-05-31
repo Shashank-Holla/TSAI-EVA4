@@ -185,7 +185,7 @@ The model was trained on 3 sets of image resolutions (64x64, 112x112 and origina
 
 #### Predictions
 
-Below are the results for the run on 192x192 resolution images. Further results can be found (here)[https://drive.google.com/drive/folders/1ACsG-epUmRCJ0zaKIAGGc5DzeG3SSY65]
+Below are the results for the run on 192x192 resolution images. Further results can be found [here](https://drive.google.com/drive/folders/1ACsG-epUmRCJ0zaKIAGGc5DzeG3SSY65)
 
  <TABLE>
   <TR>

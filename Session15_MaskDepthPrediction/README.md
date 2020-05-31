@@ -16,27 +16,52 @@ Model building is broken down into the following parts. We will work on the part
 
 - [X] - Data ingestion- Dataset and Dataloader
 
-- [ ] - Image augmentation
+- [X] - Image augmentation
 
 
 ## Model Training
 
-- [ ] - Model Architecture
+- [X] - Model Architecture
 
-- [ ] - Choose the Loss function
+- [X] - Choose the Loss function
+
+- [ ] - Model parameters and hyperparameters
+
+- [ ] - Optimization
 
 
 
 ## Output of the model
 
-- [ ] - How is the output presented
+- [ ] - Evaluating the output
 
 - [ ] - Show data in Tensorboard
 
+## Results and Observations
+
+## TODO
+
+## References
+## Pre model training
 
 ### Data ingestion- Dataset and Dataloader
 
+Custom dataset is built to read and provide a dictionary containing quartet of images- background image, background-foreground image, mask and depth image. The quartet of images are ensured to have the same context, that is, the same background and same location of the foreground in the images.
+
+Find the code here.
+
 ### Image Augmentation
+
+Image normalization and image resize have been applied. 
+Earlier intention was to apply padding with border reflect and random crop to provide further augmented data and to apply RGB shift pixelwise transforms. Since random crop and probability based transforms are applied an image at a time, the context that is present in the quartet of images is lost. Therefore these have not been applied. 
+
+Probability based transform on pair of images without losing context as shown here. Further understanding is required to apply transform in the same order and probability to the 4 images.
+
+<Transformation images>
+
+
+
+## Model Training
 
 ### Model Architecture
 
@@ -50,4 +75,29 @@ The decoder segment consists of 4 decoder blocks. The resolution of the feature 
 
 The number of parameters used by the model is- 5,230,720. Forward/Backward pass size of the model is less than 500 MB making this a light model.
 
-#### Choose the Loss function
+
+### Choose the Loss function
+
+
+## Output of the model
+
+### Evaluating the output
+
+To evaluate
+
+
+## References
+
+### Pre model training
+
+Dataset - https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel
+
+Image augmentation - https://github.com/albumentations-team/albumentations#how-to-use
+                     https://github.com/albumentations-team/albumentations/pull/133
+
+### Model Architecture
+
+https://arxiv.org/abs/1904.03380
+https://mc.ai/u-net-dilated-convolutions-and-large-convolution-kernels-in-deep-learning/
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6514714/
+

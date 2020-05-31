@@ -66,9 +66,22 @@ Find the code here.
 Image normalization and image resize have been applied. 
 Earlier intention was to apply padding with border reflect and random crop to provide further augmented data and to apply RGB shift pixelwise transforms. Since random crop and probability based transforms are applied an image at a time, the context that is present in the quartet of images is lost. Therefore these have not been applied. 
 
-As of now, probability based transform on pair of images without losing context is possible. It is shown here. Further understanding is required to apply transform in the same order and probability to the 4 images.
+As of now, probability based transform on pair of images without losing context is possible. It is shown here. Further understanding is required to apply transform in the same order and probability to the 4 images. 
 
-Transformation image here
+*This is not applied to the current runs*
+
+<TABLE>
+  <TR>
+    <TH>Augmented bg_fg image</TH>
+    <TH>Augmented mask image</TH>
+  </TR>
+   <TR>
+      <TD><img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/imageAugmentation_bgfg.jpg" alt="GT_mask"
+	title="augbg_fg" width="300" height="300" /></TD>
+      <TD><img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/imageAugmentation_mask.jpg" alt="Pred-Mask"
+	title="Prediction_Mask" width="300" height="300" /></TD>
+   </TR>
+</TABLE>
 
 
 
@@ -105,6 +118,28 @@ Hence, for depth predictions, SSIM and L1 loss is also considered.
 **SSIM Loss** - Structural Similarity Index provides the perceptual difference between the ground truth depth map and the prediction. While, **L1 Loss** provides the absolute difference (numerical distance) between the ground truth and predicted image.
 
 
+### Model Parameters and Hyper parameters
+
+Optimizer : SGD
+Loss function: (BCE + Dice loss) for mask estimation and (BCE + Dice) + SSIM + L1 loss for depth estimation
+Batch size : 512 for 64x64 resolution, 128 for 112x112 resolution and 32 for 192x192 resolution.
+Epochs : 3 (64x64 res) + 3 (112x112 res) + 2 (192x192 res)
+L2 Regularization : 1e-5
+Scheduler : Step LR
+
+### Optimization
+
+1. Pin Memory - Pin memory flag is set to True to speed up dataset transfer from CPU to GPU.
+
+2. Since, the input size of the model during train/test do not vary, the following flags are set to true. This flag enables the inbuilt CUDNN auto-tuner to find the optimal algorithm for the received GPU hardware. This configuration was tested for single train run of 280K images. Improvement of 7 min was observed on this single run (23 min without, 17 with flag enabled).
+
+`
+torch.backends.cudnn.benchmark = True
+torch.backends.cudnn.enabled = True`
+
+
+3. Though not advised, metric calculations for the output and ground truth tensors was done on the GPU itself. This is to avoid GPU to CPU transfer for every batch.
+
 
 ## Output of the model
 
@@ -118,7 +153,54 @@ To evaluate the model, the following metrics are considered. Sigmoid of the pred
 
 **Root Mean Square Error** - It calculates the pixelwise root mean square between thr ground truth and prediction.
 
+## Results and Observations
 
+### Results
+
+The model was trained on 3 sets of image resolutions (64x64, 112x112 and original resolution of 192x192) for 3 epochs. 
+
+#### Predictions
+
+Below are the results for the run on 192x192 resolution images.
+
+ <TABLE>
+  <TR>
+    <TH>Ground Truth - Mask</TH>
+    <TH>Prediction - Mask</TH>
+  </TR>
+   <TR>
+      <TD><img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/mask_E1_B8750_20200530-203614.jpg" alt="GT_mask"
+	title="Ground Truth-Mask" width="400" height="400" /></TD>
+      <TD><img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/P_mask_E1_B8750_20200530-203614.jpg" alt="Pred-Mask"
+	title="Prediction_Mask" width="400" height="400" /></TD>
+   </TR>
+</TABLE>
+
+
+ <TABLE>
+  <TR>
+    <TH>Ground Truth - Depth</TH>
+    <TH>Prediction - Depth</TH>
+  </TR>
+   <TR>
+      <TD><img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/depth_E1_B8750_20200530-203614.jpg" alt="GT_depth"
+	title="GroundTruth_Depth" width="400" height="400" /></TD>
+      <TD><img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/P_depth_E1_B8750_20200530-203614.jpg" alt="Pred-Depth"
+	title="Prediction_Depth" width="400" height="400" /></TD>
+   </TR>
+</TABLE>
+
+
+#### Graphs for Train/Test Dice Coefficient, Mean Absolute Error and RMSE
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/run_metrics.jpg)
+
+
+### Observations
+
+1. The model's mask predictions are very close to the ground truth and dice coefficient of 0.98 is achieved.
+
+2. But model's depth map predictions suffers from checkerboard issue. The edges and contours of the ground truth depth maps are no clearly captured. Dice coefficient on the depth map is about 0.59
+ 
 ## References
 
 ### Pre model training
@@ -133,4 +215,8 @@ Image augmentation - https://github.com/albumentations-team/albumentations#how-t
 https://arxiv.org/abs/1904.03380
 https://mc.ai/u-net-dilated-convolutions-and-large-convolution-kernels-in-deep-learning/
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6514714/
+
+### Optimization
+
+https://blog.paperspace.com/pytorch-memory-multi-gpu-debugging/
 

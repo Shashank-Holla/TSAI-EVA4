@@ -63,7 +63,7 @@ def mean_absolute_error_metric(yhat, y):
     y - Tensor (N x C x H x W) - Ground truth to be compared with.
 
     Output-
-    mae_error - Mean absolute error. range: [0,100]
+    mae_error - Mean absolute error. 
     '''
 
     mae_error = (1/torch.numel(yhat)) * torch.abs(y-yhat).sum()
@@ -72,13 +72,13 @@ def mean_absolute_error_metric(yhat, y):
 
 def rmse_metric(yhat, y):
     '''
-    Absolute mean error of the two samples. Higher the metric, higher the error.
+    Root mean square error of the two samples. Higher the metric, higher the error.
     Input-
     yhat - Tensor (N x C x H x W) - Model's prediction
     y - Tensor (N x C x H x W) - Ground truth to be compared with.
 
     Output-
-    rms_error - Root mean square error. range: [0,100]
+    rms_error - Root mean square error. 
     '''
     rms_error = torch.sqrt((1/torch.numel(yhat)) * torch.square(y-yhat).sum())
     return rms_error

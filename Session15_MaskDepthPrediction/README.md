@@ -13,35 +13,35 @@ Model building is broken down into the following parts. We will work on the part
 
 ## Pre model training
 
-- [X] - Dataset
+- [X] - [Dataset](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#dataset)
 
-- [X] - Data ingestion- Dataset and Dataloader
+- [X] - [Data ingestion- Dataset and Dataloader](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#data-ingestion--dataset-and-dataloader)
 
-- [X] - Image augmentation
+- [X] - [Image augmentation](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#image-augmentation)
 
 
 ## Model Training
 
-- [X] - Model Architecture
+- [X] - [Model Architecture](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#model-architecture)
 
-- [X] - Choose the Loss function
+- [X] - [Choose the Loss function](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#choose-the-loss-function)
 
-- [X] - Model parameters and hyperparameters
+- [X] - [Model parameters and hyperparameters](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#model-parameters-and-hyper-parameters)
 
-- [X] - Optimization
+- [X] - [Optimization](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/README.md#optimization)
 
 
 
 ## Output of the model
 
-- [X] - Evaluating the output
+- [X] - [Evaluating the output]()
 
 
 ## Results and Observations
 
-- [X] - Run results
+- [X] - [Run results]
 
-- [X] - Observations
+- [X] - [Observations]
 
 
 ## Pre model training

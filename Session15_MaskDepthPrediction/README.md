@@ -50,7 +50,7 @@ Model building is broken down into the following parts. We will work on the part
 
 Overlayed, mask and depth images considered this model are of Home interiors and cats as background and foreground respectively.
 
-Dataset details can be found here - https://github.com/Shashank-Holla/TSAI-EVA4/tree/master/Session14_RCNN%26DenseDepth
+Dataset details can be found here - [Session14](https://github.com/Shashank-Holla/TSAI-EVA4/tree/master/Session14_RCNN%26DenseDepth)
 
 ### Data ingestion- Dataset and Dataloader
 
@@ -111,7 +111,8 @@ Code for the BCE+Dice loss can be found [here](https://github.com/Shashank-Holla
 
 
 For depth map prediction, using just BCE+Dice loss gives result where the edges and contours of the background is lost. One result is shared below.
-(https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/Depth_1_onePixelShuffle.jpg)
+
+![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/Depth_1_onePixelShuffle.jpg)
 
 Hence, for depth predictions, SSIM and L1 loss is also considered.
 
@@ -225,9 +226,11 @@ Below is the trend for the metrics collected during train/test
 ### Pre model training
 
 Dataset - 
+
 1. https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel
 
 Image augmentation - 
+
 2. https://github.com/albumentations-team/albumentations#how-to-use
 3. https://github.com/albumentations-team/albumentations/pull/133
 
@@ -249,5 +252,5 @@ Image augmentation -
 
 ### Optimization
 
-https://blog.paperspace.com/pytorch-memory-multi-gpu-debugging/
+1. https://blog.paperspace.com/pytorch-memory-multi-gpu-debugging/
 

@@ -26,27 +26,24 @@ Model building is broken down into the following parts. We will work on the part
 
 - [X] - Choose the Loss function
 
-- [ ] - Model parameters and hyperparameters
+- [X] - Model parameters and hyperparameters
 
-- [ ] - Optimization
+- [X] - Optimization
 
 
 
 ## Output of the model
 
-- [ ] - Evaluating the output
+- [X] - Evaluating the output
 
-- [ ] - Show data in Tensorboard
 
 ## Results and Observations
 
-- [ ] - Run results
+- [X] - Run results
 
-- [ ] - Observations
+- [X] - Observations
 
-## TODO
 
-## References
 ## Pre model training
 
 ### Dataset
@@ -59,12 +56,12 @@ Dataset details can be found here - https://github.com/Shashank-Holla/TSAI-EVA4/
 
 Custom dataset is built to read and provide a dictionary containing quartet of images- background image, background-foreground image, mask and depth image. The quartet of images are ensured to have the same context, that is, the same background and same location of the foreground in the images.
 
-Find the code here.
+Find the code [here](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/data/schrodingersCatDataset.py)
 
 ### Image Augmentation
 
 Image normalization and image resize have been applied. 
-Earlier intention was to apply padding with border reflect and random crop to provide further augmented data and to apply RGB shift pixelwise transforms. Since random crop and probability based transforms are applied an image at a time, the context that is present in the quartet of images is lost. Therefore these have not been applied. 
+Earlier intention was to apply padding with border reflect and random crop to provide further augmented data and to apply RGB shift pixelwise transforms. Since random crop and probability based transforms are applied an image at a time, the context that is present in the quartet of images is lost. Therefore these have not been applied. Find the code [here](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/data/albumentations_transform.py)
 
 As of now, probability based transform on pair of images without losing context is possible. It is shown here. Further understanding is required to apply transform in the same order and probability to the 4 images. 
 
@@ -99,6 +96,8 @@ The decoder segment consists of 4 decoder blocks. The resolution of the feature 
 
 The number of parameters used by the model is- 5,230,720. Forward/Backward pass size of the model is less than 500 MB making this a light model.
 
+Find the code [here](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/models/depthmasknet.py)
+
 
 ### Choose the Loss function
 
@@ -108,10 +107,11 @@ For mask segmentation prediction, (BCE + Dice) loss function is considered.
 
 Binary cross entropy loss provides large penalty when incorrect predictions are made with high probability. This is combined with Dice Loss (1-Dice Coefficient). Dice coefficient provides measure of overlap between the ground truth and the predicted output.
 
-Code for the BCE+Dice loss can be found here- 
+Code for the BCE+Dice loss can be found [here](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/loss.py) 
 
 
 For depth map prediction, using just BCE+Dice loss gives result where the edges and contours of the background is lost. One result is shared below.
+(https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/Depth_1_onePixelShuffle.jpg)
 
 Hence, for depth predictions, SSIM and L1 loss is also considered.
 
@@ -121,11 +121,17 @@ Hence, for depth predictions, SSIM and L1 loss is also considered.
 ### Model Parameters and Hyper parameters
 
 Optimizer : SGD
+
 Loss function: (BCE + Dice loss) for mask estimation and (BCE + Dice) + SSIM + L1 loss for depth estimation
+
 Batch size : 512 for 64x64 resolution, 128 for 112x112 resolution and 32 for 192x192 resolution.
+
 Epochs : 3 (64x64 res) + 3 (112x112 res) + 2 (192x192 res)
+
 L2 Regularization : 1e-5
+
 Scheduler : Step LR
+
 
 ### Optimization
 
@@ -133,9 +139,9 @@ Scheduler : Step LR
 
 2. Since, the input size of the model during train/test do not vary, the following flags are set to true. This flag enables the inbuilt CUDNN auto-tuner to find the optimal algorithm for the received GPU hardware. This configuration was tested for single train run of 280K images. Improvement of 7 min was observed on this single run (23 min without, 17 with flag enabled).
 
-`
-torch.backends.cudnn.benchmark = True
-torch.backends.cudnn.enabled = True`
+`torch.backends.cudnn.benchmark = True`
+
+`torch.backends.cudnn.enabled = True`
 
 
 3. Though not advised, metric calculations for the output and ground truth tensors was done on the GPU itself. This is to avoid GPU to CPU transfer for every batch.
@@ -152,6 +158,8 @@ To evaluate the model, the following metrics are considered. Sigmoid of the pred
 **Mean Absolute Error** - It calculates the average of pixelwise numerical distance between the ground truth and prediction. Higher the metric, higher the error. 
 
 **Root Mean Square Error** - It calculates the pixelwise root mean square between thr ground truth and prediction.
+
+Refer the code for the metrics [here](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/metrics/metrics.py#L40)
 
 ## Results and Observations
 
@@ -192,6 +200,9 @@ Below are the results for the run on 192x192 resolution images.
 
 
 #### Graphs for Train/Test Dice Coefficient, Mean Absolute Error and RMSE
+
+Below is the trend for the metrics collected during train/test 
+
 ![](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/run_metrics.jpg)
 
 
@@ -201,20 +212,40 @@ Below are the results for the run on 192x192 resolution images.
 
 2. But model's depth map predictions suffers from checkerboard issue. The edges and contours of the ground truth depth maps are no clearly captured. Dice coefficient on the depth map is about 0.59
  
+## TODO
+
+* Checkboard issue for depth predictions with pixel shuffle.
+
+* Learning rate fine tune
+
+* Implement Tensorboard
+
 ## References
 
 ### Pre model training
 
-Dataset - https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel
+Dataset - 
+1. https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel
 
-Image augmentation - https://github.com/albumentations-team/albumentations#how-to-use
-                     https://github.com/albumentations-team/albumentations/pull/133
+Image augmentation - 
+2. https://github.com/albumentations-team/albumentations#how-to-use
+3. https://github.com/albumentations-team/albumentations/pull/133
 
 ### Model Architecture
 
-https://arxiv.org/abs/1904.03380
-https://mc.ai/u-net-dilated-convolutions-and-large-convolution-kernels-in-deep-learning/
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6514714/
+1. https://arxiv.org/abs/1904.03380
+2. https://mc.ai/u-net-dilated-convolutions-and-large-convolution-kernels-in-deep-learning/
+3. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6514714/
+
+### Loss function
+1. https://medium.com/udacity-pytorch-challengers/a-brief-overview-of-loss-functions-in-pytorch-c0ddb78068f7
+2. https://stackoverflow.com/questions/53956932/use-pytorch-ssim-loss-function-in-my-model
+3. https://www.kaggle.com/bigironsphere/loss-function-library-keras-pytorch
+4. https://medium.com/@sanari85/rediscovery-of-ssim-index-in-image-reconstruction-ssim-as-a-loss-function-a1ffef7d2be
+5. https://medium.com/ai-salon/understanding-dice-loss-for-crisp-boundary-detection-bb30c2e5f62b
+6. https://www.jeremyjordan.me/semantic-segmentation/#loss
+7. https://towardsdatascience.com/deep-learning-image-enhancement-insights-on-loss-function-engineering-f57ccbb585d7
+
 
 ### Optimization
 

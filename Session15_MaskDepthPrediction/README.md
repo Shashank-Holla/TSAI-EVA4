@@ -91,10 +91,23 @@ To predict the depth and mask maps, the output of the model needs to be dense. T
 #### Encoder
 The encoder segment of the model consists of 4 encoder blocks. Each of the encoder blocks uses 3x3 regular convolution and 3x3 dilated convolution. Dilated convolution is used to capture the spatial information of the pixels. The result of these convolutions are concatenated. Further, the channel size is halved using 1x1 pointwise convolution.
 
+<p>
+<img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/Encoder.jpg" alt="Pred-Mask"
+	title="Prediction_Mask" width="400" height="300" /></p>
+
 #### Decoder
 The decoder segment consists of 4 decoder blocks. The resolution of the feature maps are upscaled by a factor of 2 in each of the decoder blocks using pointwise convolution and pixel-shuffle. Pointwise convolution is here used to double the number of channels. Pixel-shuffle is later used to upscale the resolution.
 
-The number of parameters used by the model is- 5,230,720. Forward/Backward pass size of the model is less than 500 MB making this a light model.
+<p><img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/decoder.jpg" width="400" height="200" /></p>
+
+
+
+The number of parameters used by the model is- 5,230,720. Forward/Backward pass size of the model is less than 500 MB making this a light model. Summary of the model is present in the ipynb file.
+
+**Full Architecture**
+<p>
+<img src="https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/Images/Full_architecture.jpg" width="800" height="400" /></p>
+
 
 Find the code [here](https://github.com/Shashank-Holla/TSAI-EVA4/blob/master/Session15_MaskDepthPrediction/models/depthmasknet.py)
 
